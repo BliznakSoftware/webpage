@@ -235,42 +235,177 @@ body {
     line-height: 1.8;
 }
 
-/* Benefits Section */
+/* Benefits Section - timeline style (moved from index.html)
+   Consolidated and scoped under .benefits to avoid colliding with .timeline rules
+*/
 .benefits {
     padding: 120px 0;
     background-color: var(--bg-dark);
+    color: var(--text-primary);
 }
 
-.benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 60px;
-    margin-top: 80px;
+.benefits .container {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.benefit-card {
-    text-align: center;
-    padding: 40px 20px;
+/* Left column (Process label + large heading) */
+.benefits-left {
+    width: 42%;
+    padding-right: 24px;
 }
 
-.benefit-icon {
-    margin-bottom: 30px;
+.benefits-left .process-label {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--text-primary);
+    opacity: 0.7;
+    margin-bottom: 18px;
+    font-weight: 600;
+    text-transform: none;
 }
 
-.benefit-icon svg {
-    opacity: 0.8;
+.benefits-left .section-title {
+    font-size: 48px;
+    line-height: 1.05;
+    margin: 0 0 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: pre-line;
 }
 
-.benefit-card h3 {
-    font-size: 22px;
-    font-weight: 400;
-    margin-bottom: 20px;
-}
-
-.benefit-card p {
+.benefits-left .section-subtitle {
     color: var(--text-secondary);
-    font-size: 15px;
-    line-height: 1.7;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 420px;
+}
+
+/* Right column (vertical timeline) */
+.benefits-right {
+    width: 58%;
+    position: relative;
+    padding-left: 72px; /* space for icons & vertical line */
+}
+
+/* Vertical connecting line centered through the icons (white) */
+.benefits-right::before {
+    content: "";
+    position: absolute;
+    left: 36px;       /* center x position for the line (matches icons center) */
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    background: #ffffff;
+    opacity: 1;
+    z-index: 1;       /* place behind icons */
+}
+
+/* Timeline items inside the benefits area */
+.benefits-right .timeline-item {
+    position: relative;
+    padding: 26px 0 26px 72px; /* text starts to the right of the centered line/icons */
+}
+
+/* Icons centered on the vertical line */
+.benefits-right .timeline-icon {
+    position: absolute;
+    left: 36px; /* center the icon on the vertical line */
+    top: 28px;
+    transform: translateX(-50%); /* ensure the circle is centered exactly on the line */
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid #ffffff; /* white border */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    z-index: 2; /* above the connecting line */
+}
+
+/* Make all timeline SVG icons stroke-only (white outline)
+   Force icons (and any inner SVG paths) to use white stroke and no fill */
+.benefits-right .timeline-icon svg,
+.benefits-right .timeline-icon svg * {
+    stroke: #ffffff !important;
+    fill: none !important;
+    color: #ffffff !important;
+}
+
+/* keep a consistent stroke-width for small SVG lines */
+.benefits-right .timeline-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.4;
+    opacity: 1;
+}
+
+/* text styles for timeline items */
+.benefits-right .timeline-item h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.benefits-right .timeline-item p,
+.benefits-right .timeline-item ul {
+    margin: 0;
+    color: #e6e6e6;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 520px;
+}
+
+.benefits-right .timeline-item ul {
+    margin-top: 8px;
+    padding-left: 18px;
+}
+
+.benefits-right .timeline-item li {
+    margin-bottom: 6px;
+}
+
+/* spacing between items */
+.benefits-right .timeline-item + .timeline-item {
+    margin-top: 18px;
+}
+
+/* week / caption label */
+.benefits-right .timeline-caption {
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+/* small tweak for the last icon style if needed */
+.benefits-right .timeline-icon.x {
+    border-color: rgba(255,255,255,0.9);
+}
+
+/* Responsive adjustments for benefits timeline */
+@media (max-width: 900px) {
+    .benefits .container {
+        flex-direction: column;
+    }
+    .benefits-left, .benefits-right {
+        width: 100%;
+        padding: 0;
+    }
+    .benefits-right {
+        padding-left: 48px;
+    }
+    .benefits-right::before {
+        left: 24px;
+    }
+    .benefits-right .timeline-item { padding-left: 56px; }
+    .benefits-right .timeline-icon { left: 24px; transform: translateX(-50%); top: 24px; }
 }
 
 /* Timeline Section */
